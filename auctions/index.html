@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse current listings on Rusty Relics Auction House."
+    />
+    <title>Auctions | Rusty Relics</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <script type="module" src="../js/auctions/listings.js" defer></script>
+    <script type="module" src="../js/loadPartials.js" defer></script>
+  </head>
+  <body class="bg-parchment-50 text-charcoal-900 flex flex-col min-h-screen">
+    <header id="header"></header>
+
+    <main class="flex-1 container mx-auto p-8">
+      <h1 class="text-3xl font-serif mb-6 text-center">Current Auctions</h1>
+
+      <div
+        class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8"
+      >
+        <div class="flex-1">
+          <label for="search" class="block font-medium mb-1"
+            >Search listings</label
+          >
+          <input
+            type="text"
+            id="search"
+            placeholder="Search by title or description"
+            class="w-full border border-gray-300 rounded-md px-4 py-2"
+          />
+        </div>
+
+        <div class="flex-1">
+          <label for="tag" class="block font-medium mb-1">Filter by tag</label>
+          <select
+            id="tag"
+            class="w-full border border-gray-300 rounded-md px-4 py-2"
+          >
+            <option value="">All Tags</option>
+            <option value="vintage">Vintage</option>
+            <option value="art">Art</option>
+            <option value="collectible">Collectible</option>
+            <option value="furniture">Furniture</option>
+          </select>
+        </div>
+
+        <button
+          id="filterBtn"
+          class="bg-rust-500 text-parchment-50 px-6 py-2 rounded-md hover:bg-rust-600 transition"
+        >
+          Apply
+        </button>
+
+        <div class="flex items-center space-x-2">
+            <input id="activeToggle" type="checkbox" checked class="w-5 h-5 accent-rust-500" />
+            <label for="activeToggle" class="text-sm font-medium">Show active listings only</label>
+        </div>
+          
+      </div>
+
+      <section
+        id="listings"
+        class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      ></section>
+
+      <div id="pagination" class="mt-8 flex justify-center gap-4"></div>
+
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

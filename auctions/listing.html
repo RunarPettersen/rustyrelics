@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listing Details - Rusty Relics</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="module" src="../js/auctions/detail.js" defer></script>
+    <script type="module" src="../js/loadPartials.js" defer></script>
+  </head>
+  <body class="bg-antique text-charcoal flex flex-col min-h-screen">
+    <header id="header"></header>
+
+    <main class="container mx-auto px-4 py-8 flex-1">
+      <section id="listing-details" class="mb-8"></section>
+
+      <section id="bid-section" class="mb-8">
+        <h2 class="text-xl font-bold mb-2">Place a Bid</h2>
+        <form id="bid-form" class="flex items-center gap-2">
+          <input type="number" id="bid-amount" min="1" class="border px-4 py-2 rounded w-32" required />
+          <button class="bg-rust-500 text-white px-4 py-2 rounded">Bid</button>
+        </form>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-bold mb-2">Bid History</h2>
+        <ul id="bid-history" class="space-y-2"></ul>
+      </section>
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

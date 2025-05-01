@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - Rusty Relics</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="module" src="../js/user/profile.js" defer></script>
+    <script type="module" src="../js/loadPartials.js" defer></script>
+  </head>
+  <body class="bg-antique text-charcoal flex flex-col min-h-screen">
+    <header id="header"></header>
+
+    <main class="flex-1 container mx-auto px-4 py-8">
+      <section id="profile-header" class="mb-10"></section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-2">My Listings</h2>
+        <div
+          id="profile-listings"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        ></div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-2">Won Auctions</h2>
+        <div
+          id="profile-wins"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        ></div>
+      </section>
+
+      <section>
+        <h2 class="text-xl font-semibold mb-2">My Bids</h2>
+        <div
+          id="profile-bids"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        ></div>
+      </section>
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>
