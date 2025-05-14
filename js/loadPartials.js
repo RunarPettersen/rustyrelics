@@ -19,9 +19,9 @@ function loadFontAwesome() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadPartial("header", "/partials/header.html");
-  await loadPartial("footer", "/partials/footer.html");
-  await loadPartial("loader", "/partials/loader.html");
+  await loadPartial("header", "./partials/header.html");
+  await loadPartial("footer", "./partials/footer.html");
+  await loadPartial("loader", "./partials/loader.html");
 
   window.showLoader = () => {
     const loader = document.getElementById("global-loader");

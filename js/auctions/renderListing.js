@@ -85,7 +85,7 @@ export function renderListing(item, container, username) {
           container.innerHTML = `<p class="bg-green-100 text-green-800 p-4 rounded shadow">Listing deleted. Redirecting to listings...</p>`;
           modal.classList.add("hidden");
           setTimeout(() => {
-            window.location.href = "/auctions/index.html";
+            window.location.href = "./auctions/index.html";
           }, 2000);
         } catch (err) {
           console.error(err);
