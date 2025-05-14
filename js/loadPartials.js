@@ -3,9 +3,17 @@ import { highlightActiveNav } from "./utils/highlightNav.js";
 import { setupHamburgerMenu } from "./utils/hamburgerMenu.js";
 
 async function loadPartial(id, url) {
-  const response = await fetch(url);
-  const content = await response.text();
-  document.getElementById(id).innerHTML = content;
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const content = await response.text();
+      document.getElementById(id).innerHTML = content;
+    } else {
+      console.error(`Failed to load ${url}:`, response.statusText);
+    }
+  } catch (err) {
+    console.error(`Failed to fetch ${url}:`, err);
+  }
 }
 
 function loadFontAwesome() {
@@ -18,10 +26,21 @@ function loadFontAwesome() {
   document.head.appendChild(link);
 }
 
+// ✅ Dynamic Base Path Detection
+function getBasePath() {
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+    return "./partials/";
+  } else {
+    return "/partials/"; // Absolute path for Netlify
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
-  await loadPartial("header", "./partials/header.html");
-  await loadPartial("footer", "./partials/footer.html");
-  await loadPartial("loader", "./partials/loader.html");
+  const basePath = getBasePath();
+
+  await loadPartial("header", `${basePath}header.html`);
+  await loadPartial("footer", `${basePath}footer.html`);
+  await loadPartial("loader", `${basePath}loader.html`);
 
   window.showLoader = () => {
     const loader = document.getElementById("global-loader");
@@ -34,7 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   setupHamburgerMenu();
-
   loadFontAwesome();
   highlightActiveNav();
   await showUserCredits();
