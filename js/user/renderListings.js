@@ -1,15 +1,88 @@
-export function renderListings(items = [], container) {
-    if (!items.length) {
-      container.innerHTML = `<p class="text-gray-500 text-sm">No items found.</p>`;
-      return;
-    }
-  
-    container.innerHTML = items.map(item => `
-      <a href="/auctions/listing.html?id=${item.id}" class="block bg-white rounded shadow p-4 hover:shadow-md transition">
-        <img src="${item.media?.[0]?.url || "/images/no-image.jpg"}" alt="${item.media?.[0]?.alt || item.title}" class="w-full h-40 object-cover rounded mb-2" />
-        <h3 class="font-semibold text-lg">${item.title}</h3>
-        <p class="text-sm text-gray-600">${item.description || ""}</p>
-      </a>
-    `).join("");
+import { apiFetch } from "../utils/apiFetch.js";
+
+export function renderListings(items = [], container, currentUsername) {
+  if (!items.length) {
+    container.innerHTML = `<p class="text-gray-500 text-sm">No items found.</p>`;
+    return;
   }
-  
+
+  container.innerHTML = "";
+
+  const modal = document.getElementById("confirm-modal");
+  const confirmBtn = document.getElementById("confirm-delete");
+  const cancelBtn = document.getElementById("cancel-delete");
+
+  let pendingDeleteCard = null;
+  let pendingItemId = null;
+
+  cancelBtn?.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    pendingDeleteCard = null;
+    pendingItemId = null;
+  });
+
+  confirmBtn?.addEventListener("click", async () => {
+    if (!pendingItemId || !pendingDeleteCard) return;
+
+    try {
+      await apiFetch(`/auction/listings/${pendingItemId}`, { method: "DELETE" });
+      pendingDeleteCard.remove();
+    } catch (error) {
+      console.error("Failed to delete listing:", error);
+    }
+
+    modal.classList.add("hidden");
+    pendingDeleteCard = null;
+    pendingItemId = null;
+  });
+
+  items.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = "bg-white rounded shadow p-4 hover:shadow-md transition";
+
+    const link = document.createElement("a");
+    link.href = `/auctions/listing.html?id=${item.id}`;
+    link.className = "block mb-2";
+
+    const image = document.createElement("img");
+    image.src = item.media?.[0]?.url || "/images/no-image.jpg";
+    image.alt = item.media?.[0]?.alt || item.title;
+    image.className = "w-full h-40 object-cover rounded mb-2";
+
+    const title = document.createElement("h3");
+    title.className = "font-semibold text-lg";
+    title.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.className = "text-sm text-gray-600";
+    description.textContent = item.description || "";
+
+    link.append(image, title, description);
+    card.appendChild(link);
+
+    if (item.seller?.name === currentUsername) {
+      const actions = document.createElement("div");
+      actions.className = "flex gap-2 mt-2";
+
+      const editBtn = document.createElement("a");
+      editBtn.href = `/auctions/edit.html?id=${item.id}`;
+      editBtn.className = "text-sm bg-gold-500 text-white px-3 py-1 rounded hover:bg-gold-600";
+      editBtn.textContent = "Edit";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700";
+      deleteBtn.textContent = "Delete";
+
+      deleteBtn.addEventListener("click", () => {
+        pendingDeleteCard = card;
+        pendingItemId = item.id;
+        modal.classList.remove("hidden");
+      });
+
+      actions.append(editBtn, deleteBtn);
+      card.appendChild(actions);
+    }
+
+    container.appendChild(card);
+  });
+}

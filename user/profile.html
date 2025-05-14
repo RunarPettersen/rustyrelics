@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile - Rusty Relics</title>
+    <meta name="description" content="Your profile at Rusty Relics Auction House" />
+    <title>My Profile | Rusty Relics</title>
+    <link rel="icon" type="image/png" href="../images/rustyfavicon.png" />
     <link rel="stylesheet" href="../css/style.css" />
     <script type="module" src="../js/user/profile.js" defer></script>
     <script type="module" src="../js/loadPartials.js" defer></script>
@@ -13,6 +15,12 @@
 
     <main class="flex-1 container mx-auto px-4 py-8">
       <section id="profile-header" class="mb-10"></section>
+      <a
+          href="../auctions/create.html"
+          class="inline-block bg-rust-500 text-antique hover:bg-rust-600 px-6 py-3 rounded-md text-lg font-semibold mb-4"
+        >
+          Create Auction
+        </a>
 
       <section class="mb-10">
         <h2 class="text-xl font-semibold mb-2">My Listings</h2>
@@ -37,8 +45,20 @@
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         ></div>
       </section>
+      <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden z-50 grid place-content-center">
+        <div class="bg-white p-6 rounded shadow max-w-sm w-full text-center">
+          <h2 class="text-lg font-semibold mb-4">Are you sure?</h2>
+          <p class="mb-6">This will permanently delete the listing.</p>
+          <div class="flex justify-center gap-4">
+            <button id="confirm-delete" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Yes, Delete</button>
+            <button id="cancel-delete" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">Cancel</button>
+          </div>
+        </div>
+      </div>
+      
     </main>
 
     <footer id="footer"></footer>
+    <div id="loader"></div>
   </body>
 </html>

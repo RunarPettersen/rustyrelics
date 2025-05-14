@@ -1,4 +1,5 @@
 import { API_BASE } from "../constants/api.js";
+import { showMessage } from "../utils/showMessage.js";
 
 const form = document.getElementById("register-form");
 
@@ -14,6 +15,17 @@ form.addEventListener("submit", async (e) => {
   const bannerUrl = form["banner-url"].value.trim();
   const bannerAlt = form["banner-alt"].value.trim();
 
+  // Client-side validation
+  if (!email.endsWith("@stud.noroff.no")) {
+    showMessage("Email must end with @stud.noroff.no", "error");
+    return;
+  }
+
+  if (password.length < 8) {
+    showMessage("Password must be at least 8 characters long", "error");
+    return;
+  }
+
   const payload = {
     name,
     email,
@@ -24,7 +36,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const response = await fetch(`${API_BASE}auth/register`, {
+    const response = await fetch(`${API_BASE}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,14 +47,16 @@ form.addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (response.ok) {
-      alert("Registration successful!");
-      window.location.href = "/user/login.html";
+      showMessage("Registration successful!", "success");
+      setTimeout(() => {
+        window.location.href = "/user/login.html";
+      }, 2000);
     } else {
       console.error(result);
-      alert(result.errors?.[0]?.message || "Registration failed.");
+      showMessage(result.errors?.[0]?.message || "Registration failed.", "error");
     }
   } catch (err) {
     console.error(err);
-    alert("Something went wrong.");
+    showMessage("Something went wrong.", "error");
   }
 });

@@ -3,6 +3,26 @@ import { saveAuth } from "../utils/auth.js";
 
 const form = document.getElementById("login-form");
 
+function showMessage(message, type = "success", duration = 3000) {
+  const existing = document.getElementById("login-message");
+  if (existing) existing.remove();
+
+  const div = document.createElement("div");
+  div.id = "login-message";
+  div.className = `
+    fixed bottom-6 right-6 z-50 px-4 py-2 rounded shadow-lg text-lg
+    ${type === "success" ? "bg-rust-500 text-white border-4 border-gold-500" : "bg-red-600 text-white"}
+  `;
+  div.textContent = message;
+
+  document.body.appendChild(div);
+
+  setTimeout(() => {
+    div.classList.add("opacity-0");
+    setTimeout(() => div.remove(), 300);
+  }, duration);
+}
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -12,7 +32,7 @@ form.addEventListener("submit", async (e) => {
   const payload = { email, password };
 
   try {
-    const response = await fetch(`${API_BASE}auth/login`, {
+    const response = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,14 +48,15 @@ form.addEventListener("submit", async (e) => {
         name: result.data.name,
       });
 
-      alert("Login successful!");
-      window.location.href = "/"; // redirect as needed
+      showMessage("Login successful!", "success");
+      setTimeout(() => {
+        window.location.href = "/user/profile.html";
+      }, 1500);
     } else {
-      alert(result.errors?.[0]?.message || "Login failed.");
+      showMessage(result.errors?.[0]?.message || "Login failed", "error");
     }
   } catch (err) {
     console.error(err);
-    alert("Something went wrong.");
+    showMessage("Something went wrong.", "error");
   }
 });
-

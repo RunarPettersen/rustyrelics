@@ -6,10 +6,10 @@ export function displayPagination({ currentPage, totalPages, lastSearch, lastTag
 
   if (totalPages <= 1) return;
 
-  const prevBtn = `<button class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300" ${currentPage === 1 ? "disabled" : ""}
+  const prevBtn = `<button class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer" ${currentPage === 1 ? "disabled" : ""}
     data-page="${currentPage - 1}">Previous</button>`;
 
-  const nextBtn = `<button class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300" ${currentPage === totalPages ? "disabled" : ""}
+  const nextBtn = `<button class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer" ${currentPage === totalPages ? "disabled" : ""}
     data-page="${currentPage + 1}">Next</button>`;
 
   pagination.innerHTML =

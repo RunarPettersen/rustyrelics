@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Browse current listings on Rusty Relics Auction House."
-    />
+      content="Browse current listings on Rusty Relics Auction House." />
     <title>Auctions | Rusty Relics</title>
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="../images/rustyfavicon.png" />
     <link href="../css/style.css" rel="stylesheet" />
     <script type="module" src="../js/auctions/listings.js" defer></script>
     <script type="module" src="../js/loadPartials.js" defer></script>
@@ -42,10 +41,23 @@
           >
             <option value="">All Tags</option>
             <option value="vintage">Vintage</option>
+            <option value="music">Music</option>
             <option value="art">Art</option>
             <option value="collectible">Collectible</option>
             <option value="furniture">Furniture</option>
           </select>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <input
+            id="activeToggle"
+            type="checkbox"
+            checked
+            class="w-5 h-5 accent-rust-500"
+          />
+          <label for="activeToggle" class="text-sm font-medium"
+            >Show active listings only</label
+          >
         </div>
 
         <button
@@ -54,12 +66,14 @@
         >
           Apply
         </button>
+      </div>
 
-        <div class="flex items-center space-x-2">
-            <input id="activeToggle" type="checkbox" checked class="w-5 h-5 accent-rust-500" />
-            <label for="activeToggle" class="text-sm font-medium">Show active listings only</label>
-        </div>
-          
+      <div class="flex justify-end mb-4">
+        <label for="sort-select" class="mr-2 font-medium">Sort by:</label>
+        <select id="sort-select" class="p-2 border rounded">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
       </div>
 
       <section
@@ -68,9 +82,16 @@
       ></section>
 
       <div id="pagination" class="mt-8 flex justify-center gap-4"></div>
-
     </main>
 
+    <a
+    href="./create.html"
+    class="fixed top-24 md:top-44 right-4 md:right-14 bg-gold-500 text-white px-4 py-1 md:py-2 rounded shadow z-50 cursor-pointer hover:bg-gold-600 transition"
+  >
+    Create Auction
+  </a>
+
     <footer id="footer"></footer>
+    <div id="loader"></div>
   </body>
 </html>

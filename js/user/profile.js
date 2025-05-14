@@ -8,4 +8,6 @@ if (!username || !token) {
   window.location.href = "/user/login.html";
 }
 
+document.title = `${username}'s Profile | Rusty Relics`;
+
 loadProfile(username);

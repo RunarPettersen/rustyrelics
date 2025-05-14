@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Details for auctions at Rusty Relics Auction House" />
     <title>Listing Details - Rusty Relics</title>
+    <link rel="icon" type="image/png" href="../images/rustyfavicon.png" />
     <link rel="stylesheet" href="../css/style.css" />
     <script type="module" src="../js/auctions/detail.js" defer></script>
     <script type="module" src="../js/loadPartials.js" defer></script>
@@ -17,8 +19,8 @@
       <section id="bid-section" class="mb-8">
         <h2 class="text-xl font-bold mb-2">Place a Bid</h2>
         <form id="bid-form" class="flex items-center gap-2">
-          <input type="number" id="bid-amount" min="1" class="border px-4 py-2 rounded w-32" required />
-          <button class="bg-rust-500 text-white px-4 py-2 rounded">Bid</button>
+          <input type="number" id="bid-amount" min="1" class="bg-white border px-4 py-2 rounded w-32" required />
+          <button class="bg-rust-500 text-white px-4 py-2 rounded cursor-pointer">Bid</button>
         </form>
       </section>
 
@@ -26,8 +28,21 @@
         <h2 class="text-xl font-bold mb-2">Bid History</h2>
         <ul id="bid-history" class="space-y-2"></ul>
       </section>
+
     </main>
 
+    <div id="confirm-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded shadow max-w-sm w-full text-center">
+        <h2 class="text-lg font-semibold mb-4">Are you sure?</h2>
+        <p class="mb-6">This will permanently delete the listing.</p>
+        <div class="flex justify-center gap-4">
+          <button id="confirm-delete" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer">Yes, Delete</button>
+          <button id="cancel-delete" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer">Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <footer id="footer"></footer>
+    <div id="loader"></div>
   </body>
 </html>

@@ -4,21 +4,27 @@ import { displayPagination } from "./displayPagination.js";
 
 const listingsContainer = document.getElementById("listings");
 
-const LIMIT = 12;
+const LIMIT = 24;
 let currentPage = 1;
 let totalPages = 1;
 let lastSearch = "";
 let lastTag = "";
 let lastActiveOnly = true;
 
-function buildEndpoint({ search, tag, page, activeOnly }) {
+function buildEndpoint({ search, tag, page, activeOnly, sort, sortOrder }) {
   const params = new URLSearchParams({
     page: page.toString(),
     limit: LIMIT.toString(),
+    _seller: "true",
   });
 
   if (activeOnly) {
     params.append("_active", "true");
+  }
+
+  if (sort) {
+    params.append("sort", sort);
+    params.append("sortOrder", sortOrder || "desc");
   }
 
   if (search) {
@@ -33,7 +39,16 @@ function buildEndpoint({ search, tag, page, activeOnly }) {
   return `/auction/listings?${params.toString()}`;
 }
 
-export async function fetchListings({ search = "", tag = "", page = 1, activeOnly = true } = {}) {
+export async function fetchListings({
+  search = "",
+  tag = "",
+  page = 1,
+  activeOnly = true,
+  sort = "created",
+  sortOrder = "desc",
+} = {}) {
+  window.showLoader?.();
+
   try {
     listingsContainer.innerHTML = `<p>Loading...</p>`;
 
@@ -42,7 +57,7 @@ export async function fetchListings({ search = "", tag = "", page = 1, activeOnl
     lastActiveOnly = activeOnly;
     currentPage = page;
 
-    const endpoint = buildEndpoint({ search, tag, page, activeOnly });
+    const endpoint = buildEndpoint({ search, tag, page, activeOnly, sort, sortOrder });
     const response = await fetch(`${API_BASE}${endpoint}`);
     const result = await response.json();
 
@@ -57,5 +72,7 @@ export async function fetchListings({ search = "", tag = "", page = 1, activeOnl
   } catch (error) {
     listingsContainer.innerHTML = `<p class="text-red-600">Error: ${error.message}</p>`;
     console.error(error);
+  } finally {
+    window.hideLoader?.();
   }
 }
