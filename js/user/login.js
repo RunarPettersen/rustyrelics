@@ -50,7 +50,7 @@ form.addEventListener("submit", async (e) => {
 
       showMessage("Login successful!", "success");
       setTimeout(() => {
-        window.location.href = "./user/profile.html";
+        window.location.href = "./profile.html";
       }, 1500);
     } else {
       showMessage(result.errors?.[0]?.message || "Login failed", "error");

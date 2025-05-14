@@ -5,7 +5,7 @@ const username = getUsername();
 const token = getToken();
 
 if (!username || !token) {
-  window.location.href = "../user/login.html";
+  window.location.href = "./login.html";
 }
 
 document.title = `${username}'s Profile | Rusty Relics`;
