@@ -1,4 +1,5 @@
 import { apiFetch } from "../utils/apiFetch.js";
+import { startCountdown } from "../utils/countdownTimer.js";
 
 export function renderListings(items = [], container, currentUsername) {
   if (!items.length) {
@@ -38,16 +39,36 @@ export function renderListings(items = [], container, currentUsername) {
 
   items.forEach((item) => {
     const card = document.createElement("div");
-    card.className = "bg-white rounded shadow p-4 hover:shadow-md transition";
+    card.className = "bg-white rounded shadow p-4 hover:shadow-md transition relative";
 
     const link = document.createElement("a");
     link.href = `/auctions/listing.html?id=${item.id}`;
     link.className = "block mb-2";
 
+    // Image wrapper to contain the badge
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "relative";
+
     const image = document.createElement("img");
     image.src = item.media?.[0]?.url || "/images/no-image.jpg";
     image.alt = item.media?.[0]?.alt || item.title;
     image.className = "w-full h-40 object-cover rounded mb-2";
+
+    // 🔹 Time Left Badge
+    const badge = document.createElement("span");
+    badge.className = "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";
+    imageWrapper.appendChild(image);
+    imageWrapper.appendChild(badge);
+
+    // 🕒 Start Countdown if endsAt is available
+    if (item.endsAt) {
+      startCountdown(badge, new Date(item.endsAt));
+    } else {
+      badge.textContent = "No end date";
+    }
+
+    // Add image wrapper to the link
+    link.append(imageWrapper);
 
     const title = document.createElement("h3");
     title.className = "font-semibold text-lg";
@@ -57,7 +78,7 @@ export function renderListings(items = [], container, currentUsername) {
     description.className = "text-sm text-gray-600";
     description.textContent = item.description || "";
 
-    link.append(image, title, description);
+    link.append(title, description);
     card.appendChild(link);
 
     if (item.seller?.name === currentUsername) {

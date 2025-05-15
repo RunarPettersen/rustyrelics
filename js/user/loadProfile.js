@@ -73,4 +73,3 @@ export async function loadProfile(username) {
     console.error(error);
   }
 }
-
