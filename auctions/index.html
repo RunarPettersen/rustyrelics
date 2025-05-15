@@ -16,6 +16,7 @@
     <header id="header"></header>
 
     <main class="flex-1 container mx-auto p-8">
+      <a href="./create.html" class="bg-rust-500 text-white px-4 py-2 rounded shadow z-50 cursor-pointer hover:bg-rust-600 transition mb-100 max-md:hidden">Create Auction</a>
       <h1 class="text-3xl font-serif mb-6 text-center">Current Auctions</h1>
 
       <div
@@ -62,7 +63,7 @@
 
         <button
           id="filterBtn"
-          class="bg-rust-500 text-parchment-50 px-6 py-2 rounded-md hover:bg-rust-600 transition"
+          class="bg-rust-500 text-parchment-50 px-6 py-2 rounded-md hover:bg-rust-600 transition cursor-pointer"
         >
           Apply
         </button>
@@ -83,13 +84,6 @@
 
       <div id="pagination" class="mt-8 flex justify-center gap-4"></div>
     </main>
-
-    <a
-    href="./create.html"
-    class="fixed top-24 md:top-44 right-4 md:right-14 bg-gold-500 text-white px-4 py-1 md:py-2 rounded shadow z-50 cursor-pointer hover:bg-gold-600 transition"
-  >
-    Create Auction
-  </a>
 
     <footer id="footer"></footer>
     <div id="loader"></div>

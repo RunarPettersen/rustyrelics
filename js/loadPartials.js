@@ -26,6 +26,19 @@ function loadFontAwesome() {
   document.head.appendChild(link);
 }
 
+// ✅ Fix for trailing slashes
+function ensureTrailingSlash() {
+  const currentPath = window.location.pathname;
+
+  // List of paths that should always have a trailing slash
+  const paths = ["/about", "/auctions", "/user"];
+
+  if (paths.includes(currentPath)) {
+    console.log("🔄 Redirecting to add trailing slash...");
+    window.location.replace(`${currentPath}/`);
+  }
+}
+
 // Smarter path detection
 function getBasePath() {
   const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
@@ -37,6 +50,14 @@ function getBasePath() {
 
     // Fix: auctions should go one level up
     if (pathParts.includes("auctions")) {
+      return "../partials/";
+    }
+
+    if (pathParts.includes("about")) {
+      return "../partials/";
+    }
+
+    if (pathParts.includes("user")) {
       return "../partials/";
     }
 
@@ -62,6 +83,9 @@ function getBasePath() {
   // If we are on Netlify or GitHub Pages, we need absolute
   return "/partials/";
 }
+
+// Ensure the trailing slash before loading partials
+ensureTrailingSlash();
 
 document.addEventListener("DOMContentLoaded", async () => {
   const basePath = getBasePath();
