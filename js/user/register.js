@@ -49,7 +49,7 @@ form.addEventListener("submit", async (e) => {
     if (response.ok) {
       showMessage("Registration successful!", "success");
       setTimeout(() => {
-        window.location.href = "./user/login.html";
+        window.location.href = "./login.html";
       }, 2000);
     } else {
       console.error(result);
