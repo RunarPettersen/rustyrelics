@@ -17,6 +17,5 @@ export function initSorting() {
     fetchListings({ sort, sortOrder });
   });
 
-  // Trigger default sort on page load
   fetchListings({ sort: "created", sortOrder: "desc" });
 }

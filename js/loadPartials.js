@@ -26,7 +26,7 @@ function loadFontAwesome() {
   document.head.appendChild(link);
 }
 
-// ✅ Fix for trailing slashes
+// Fix for trailing slashes
 function ensureTrailingSlash() {
   const currentPath = window.location.pathname;
 
@@ -44,11 +44,9 @@ function getBasePath() {
   const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
   if (isLocal) {
-    // Get the current path and count the depth
     const currentPath = window.location.pathname;
     const pathParts = currentPath.split("/").filter(Boolean);
 
-    // Fix: auctions should go one level up
     if (pathParts.includes("auctions")) {
       return "../partials/";
     }
@@ -61,26 +59,21 @@ function getBasePath() {
       return "../partials/";
     }
 
-    // If we are at the root (like index.html)
     if (pathParts.length === 1) {
       return "./partials/";
     }
 
-    // If we are inside a subfolder like `/user/profile.html`
     if (pathParts.length === 2) {
       return "../partials/";
     }
 
-    // If we are even deeper (like /auctions/edit/)
     if (pathParts.length > 2) {
       return "../../partials/";
     }
 
-    // Default case
     return "./partials/";
   }
 
-  // If we are on Netlify or GitHub Pages, we need absolute
   return "/partials/";
 }
 
