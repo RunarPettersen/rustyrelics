@@ -14,12 +14,14 @@
     <header id="header"></header>
 
     <main class="container mx-auto px-4 py-8 flex-1">
-      <section id="listing-details" class="mb-8"></section>
+      <section id="listing-details" class="mb-8">
+        <h1 class="sr-only">Listing Details</h1>
+      </section>
 
       <section id="bid-section" class="mb-8">
         <h2 class="text-xl font-bold mb-2">Place a Bid</h2>
         <form id="bid-form" class="flex items-center gap-2">
-          <input type="number" id="bid-amount" min="1" class="bg-white border px-4 py-2 rounded w-32" required />
+          <input type="number" id="bid-amount" min="1" class="bg-white border px-4 py-2 rounded w-32" required>
           <button class="bg-rust-500 text-white px-4 py-2 rounded cursor-pointer">Bid</button>
         </form>
       </section>
