@@ -5,7 +5,7 @@
  * @param {Date} endsAt - The end date and time of the auction.
  */
 export function startCountdown(badge, endsAt) {
-  let interval; // ✅ Define the interval variable first
+  let interval;
 
   const updateBadge = () => {
     const now = new Date();
@@ -15,7 +15,7 @@ export function startCountdown(badge, endsAt) {
       badge.textContent = "Ended!";
       badge.classList.remove("bg-black/70");
       badge.classList.add("bg-red-600");
-      clearInterval(interval); // ✅ Clear it when done
+      clearInterval(interval);
     } else {
       const diffMinutes = Math.floor(diffMs / (1000 * 60));
       const diffHours = Math.floor(diffMinutes / 60);
@@ -33,6 +33,6 @@ export function startCountdown(badge, endsAt) {
   // Run it once to set the initial state
   updateBadge();
 
-  // ✅ Initialize the interval after defining it
-  interval = setInterval(updateBadge, 60000);
+  // Initialize the interval after defining it, every second
+  interval = setInterval(updateBadge, 1000);
 }
