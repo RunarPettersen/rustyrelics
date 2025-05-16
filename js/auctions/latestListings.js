@@ -1,4 +1,5 @@
 import { API_BASE } from "../constants/api.js";
+import { startCountdown } from "../utils/countdownTimer.js";
 
 export async function loadLatestListings(containerId = "latest-listings") {
   const container = document.getElementById(containerId);
@@ -17,15 +18,13 @@ export async function loadLatestListings(containerId = "latest-listings") {
       return;
     }
 
-    container.textContent = ""; // Clear loading message
+    container.textContent = "";
 
     data.forEach((item) => {
       const imageUrl = item.media?.[0]?.url || "/images/no-image.jpg";
       const altText = item.media?.[0]?.alt || item.title;
       const lastBid = item.bids?.[item.bids.length - 1]?.amount ?? "No bids";
       const bidCount = item._count?.bids ?? 0;
-      const endsAt = new Date(item.endsAt);
-      const daysLeft = Math.ceil((endsAt - new Date()) / (1000 * 60 * 60 * 24));
 
       // Create card
       const card = document.createElement("div");
@@ -44,19 +43,17 @@ export async function loadLatestListings(containerId = "latest-listings") {
       img.alt = altText;
       img.className = "w-full h-50 object-cover rounded mb-2";
 
-      const diffMs = endsAt - new Date();
-      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-      const timeLeft =
-        diffHours < 24
-          ? `${diffHours}h left`
-          : `${Math.ceil(diffHours / 24)}d left`;
-
+      // Create the countdown badge
       const badge = document.createElement("span");
-      badge.textContent = timeLeft;
-      badge.className =
-        "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";
-
+      badge.className = "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";
       imageWrapper.append(img, badge);
+
+      // Start the countdown
+      if (item.endsAt) {
+        startCountdown(badge, new Date(item.endsAt));
+      } else {
+        badge.textContent = "No end date";
+      }
 
       // Content
       const title = document.createElement("h3");
@@ -79,12 +76,8 @@ export async function loadLatestListings(containerId = "latest-listings") {
       bids.className = "text-sm text-gray-600";
       bids.textContent = `Bids: ${bidCount}`;
 
-      const ends = document.createElement("p");
-      ends.className = "text-sm text-gray-600";
-      ends.textContent = `Ends in: ${daysLeft} day${daysLeft !== 1 ? "s" : ""}`;
-
       // Append content to card
-      link.append(imageWrapper, title, seller, description, bid, bids, ends);
+      link.append(imageWrapper, title, seller, description, bid, bids);
       card.appendChild(link);
       container.appendChild(card);
     });

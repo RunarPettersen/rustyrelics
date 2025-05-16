@@ -1,7 +1,7 @@
-import { apiFetch } from "../utils/apiFetch.js";
 import { setupLightbox } from "../utils/lightbox.js";
+import { startCountdown } from "../utils/countdownTimer.js";
 
-export function renderListing(item, container, username) {
+export function renderListing(item, container) {
   container.innerHTML = "";
 
   const wrapper = document.createElement("div");
@@ -12,12 +12,36 @@ export function renderListing(item, container, username) {
   mediaWrapper.className = "grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4";
 
   if (Array.isArray(item.media) && item.media.length > 0) {
-    item.media.forEach((media) => {
+    item.media.forEach((media, index) => {
+      const imageContainer = document.createElement("div");
+      imageContainer.className = "relative";
+
       const img = document.createElement("img");
       img.src = media.url;
       img.alt = media.alt || item.title;
       img.className = "w-full max-h-96 object-cover rounded cursor-zoom-in";
-      mediaWrapper.appendChild(img);
+      imageContainer.appendChild(img);
+
+      if (index === 0 && item.endsAt) {
+
+  const badge = document.createElement("span");
+  badge.className =
+    "absolute top-2 left-2 bg-black/70 text-white text-sm px-3 py-1 rounded text-center min-w-[60px]";
+  badge.textContent = "Loading...";
+
+  const endDate = new Date(item.endsAt);
+
+  if (!isNaN(endDate.getTime())) {
+    startCountdown(badge, endDate);
+  } else {
+    console.error("Invalid end date. Cannot start countdown.");
+    badge.textContent = "Invalid Date";
+  }
+
+  imageContainer.appendChild(badge);
+}
+
+      mediaWrapper.appendChild(imageContainer);
     });
   } else {
     const fallback = document.createElement("img");
@@ -51,52 +75,6 @@ export function renderListing(item, container, username) {
   tags.textContent = `Tags: ${item.tags?.join(", ") || "None"}`;
 
   wrapper.append(title, desc, ends, seller, tags);
-
-  // ACTIONS (Edit/Delete)
-  if (item.seller?.name === username) {
-    const actions = document.createElement("div");
-    actions.className = "mt-4 flex gap-4";
-
-    const editLink = document.createElement("a");
-    editLink.href = `/auctions/edit.html?id=${item.id}`;
-    editLink.className = "bg-gold-500 text-white px-4 py-2 rounded hover:bg-gold-600";
-    editLink.textContent = "Edit";
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.className = "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer";
-    deleteBtn.textContent = "Delete";
-
-    deleteBtn.addEventListener("click", () => {
-      const modal = document.getElementById("confirm-modal");
-      modal.classList.remove("hidden", "opacity-0");
-      modal.classList.add("flex");
-
-      const confirmBtn = document.getElementById("confirm-delete");
-      const cancelBtn = document.getElementById("cancel-delete");
-
-      cancelBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      });
-
-      confirmBtn.addEventListener("click", async () => {
-        try {
-          await apiFetch(`/auction/listings/${item.id}`, { method: "DELETE" });
-          container.innerHTML = `<p class="bg-green-100 text-green-800 p-4 rounded shadow">Listing deleted. Redirecting to listings...</p>`;
-          modal.classList.add("hidden");
-          setTimeout(() => {
-            window.location.href = "./auctions/index.html";
-          }, 2000);
-        } catch (err) {
-          console.error(err);
-          alert("Failed to delete listing.");
-        }
-      });
-    });
-
-    actions.append(editLink, deleteBtn);
-    wrapper.appendChild(actions);
-  }
 
   container.appendChild(wrapper);
 

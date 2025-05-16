@@ -18,8 +18,14 @@ export function handleBidForm(form, input, token, id, onSuccess) {
       input.value = "";
       onSuccess();
     } catch (err) {
-      console.error(err);
-      showPopup("Failed to place bid.", "error");
+      console.error(err.message);
+
+      // ✅ Handle the "Forbidden" error correctly
+      if (err.message.includes("Forbidden:")) {
+        showPopup("You cannot bid on your own listing.", "error");
+      } else {
+        showPopup(err.message || "Failed to place bid.", "error");
+      }
     }
   });
 }

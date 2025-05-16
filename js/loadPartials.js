@@ -34,7 +34,6 @@ function ensureTrailingSlash() {
   const paths = ["/about", "/auctions", "/user"];
 
   if (paths.includes(currentPath)) {
-    console.log("🔄 Redirecting to add trailing slash...");
     window.location.replace(`${currentPath}/`);
   }
 }
