@@ -54,13 +54,12 @@ export function renderListings(items = [], container, currentUsername) {
     image.alt = item.media?.[0]?.alt || item.title;
     image.className = "w-full h-40 object-cover rounded mb-2";
 
-    // 🔹 Time Left Badge
     const badge = document.createElement("span");
     badge.className = "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";
     imageWrapper.appendChild(image);
     imageWrapper.appendChild(badge);
 
-    // 🕒 Start Countdown if endsAt is available
+    // Start Countdown if endsAt is available
     if (item.endsAt) {
       startCountdown(badge, new Date(item.endsAt));
     } else {

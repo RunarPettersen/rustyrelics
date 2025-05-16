@@ -35,7 +35,7 @@ export async function loadBids(username) {
       imageWrapper.appendChild(image);
       imageWrapper.appendChild(badge);
 
-      // 🕰️ Start Countdown if endsAt is available
+      // Start Countdown if endsAt is available
       if (listing.endsAt) {
         startCountdown(badge, new Date(listing.endsAt));
       } else {

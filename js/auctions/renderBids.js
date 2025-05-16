@@ -14,7 +14,6 @@ export function renderBids(bids, container, bidInput = null) {
     return;
   }
 
-  // Render each bid
   bids
     .sort((a, b) => new Date(b.created) - new Date(a.created))
     .forEach((bid) => {

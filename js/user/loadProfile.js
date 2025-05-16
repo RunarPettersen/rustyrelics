@@ -17,26 +17,21 @@ export async function loadProfile(username) {
       listing.seller = { name };
     });
 
-    // Clear old content
     profileHeader.innerHTML = "";
 
-    // Card wrapper
     const card = document.createElement("div");
     card.className = "rounded overflow-hidden shadow";
 
-    // Banner section
     const bannerDiv = document.createElement("div");
     bannerDiv.className = "h-48 bg-cover bg-center";
     bannerDiv.style.backgroundImage = `url('${banner?.url || ""}')`;
 
-    // Profile info wrapper
     const infoWrapper = document.createElement("div");
     infoWrapper.className = "p-4 bg-white";
 
     const flexContainer = document.createElement("div");
     flexContainer.className = "flex items-center space-x-4";
 
-    // Avatar
     const avatarImg = document.createElement("img");
     avatarImg.src = avatar?.url || "/images/default-avatar.png";
     avatarImg.alt = avatar?.alt || name;

@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Apply filter on Enter key for the tag selector
   tagSelect.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();

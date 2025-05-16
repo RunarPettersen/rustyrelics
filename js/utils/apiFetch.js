@@ -32,7 +32,7 @@ export async function apiFetch(endpoint, options = {}) {
 
     const json = await response.json();
 
-    // ✅ Specific check for Forbidden (403)
+    // Specific check for Forbidden (403)
     if (response.status === 403) {
       const message = json.errors?.[0]?.message || "Forbidden access";
       throw new Error(`Forbidden: ${message}`);

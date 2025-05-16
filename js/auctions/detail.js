@@ -24,12 +24,12 @@ async function loadListing() {
     renderListing(data, listingContainer, username);
     renderBids(data.bids || [], bidHistory, bidAmount);
 
-    // 🔹 Disable the form if you are the seller
+    // Disable the form if you are the seller
     if (data.seller.name === username) {
       bidForm.innerHTML = `<p class="text-red-500">You cannot bid on your own listing.</p>`;
       bidForm.classList.add("opacity-50", "pointer-events-none");
     } else {
-      // 🔹 If not the seller, start countdown
+      // If not the seller, start countdown
       const countdownBadge = document.createElement("span");
       countdownBadge.className =
         "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";

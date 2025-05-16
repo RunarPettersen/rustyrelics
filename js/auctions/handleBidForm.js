@@ -20,7 +20,6 @@ export function handleBidForm(form, input, token, id, onSuccess) {
     } catch (err) {
       console.error(err.message);
 
-      // ✅ Handle the "Forbidden" error correctly
       if (err.message.includes("Forbidden:")) {
         showPopup("You cannot bid on your own listing.", "error");
       } else {
