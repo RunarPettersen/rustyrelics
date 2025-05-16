@@ -12,6 +12,7 @@ Rusty Relics is an online auction house where users can create listings, bid on 
 - Node.js (version 14 or higher)
 - Tailwind CSS (via npm)
 - Prettier (for code formatting)
+- ESlint (For testing)
 
 ## Installation
 1. Clone the repository:
