@@ -1,3 +1,5 @@
+import { startCountdown } from "../utils/countdownTimer.js";
+
 const listingsContainer = document.getElementById("listings");
 
 export function displayListings(listings) {
@@ -13,26 +15,6 @@ export function displayListings(listings) {
   listings.forEach((listing) => {
     const imageUrl = listing.media?.[0]?.url || "/images/fallback.jpg";
     const altText = listing.media?.[0]?.alt || listing.title;
-    const endsAt = new Date(listing.endsAt);
-    const now = new Date();
-    const diffMs = endsAt - now;
-
-    let timeLeft;
-
-    if (diffMs <= 0) {
-      timeLeft = "Ended!";
-    } else {
-      const diffMinutes = Math.floor(diffMs / (1000 * 60));
-      const diffHours = Math.floor(diffMinutes / 60);
-      const remainingMinutes = diffMinutes % 60;
-
-      if (diffHours < 24) {
-        timeLeft = `${diffHours}h ${remainingMinutes}m left`;
-      } else {
-        const diffDays = Math.ceil(diffHours / 24);
-        timeLeft = `${diffDays}d left`;
-      }
-    }
 
     // <a>
     const link = document.createElement("a");
@@ -53,12 +35,18 @@ export function displayListings(listings) {
     image.alt = altText;
     image.className = "w-full h-48 object-cover";
 
+    // Countdown Badge
     const badge = document.createElement("span");
     badge.className =
       "absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded";
-    badge.textContent = timeLeft;
-
+    
     imageWrapper.append(image, badge);
+
+    if (listing.endsAt) {
+      startCountdown(badge, new Date(listing.endsAt));
+    } else {
+      badge.textContent = "No end date";
+    }
 
     // Content <div>
     const content = document.createElement("div");
@@ -74,7 +62,7 @@ export function displayListings(listings) {
 
     const ends = document.createElement("p");
     ends.className = "text-sm text-gray-500";
-    ends.textContent = `Ends at: ${endsAt.toLocaleString()}`;
+    ends.textContent = `Ends at: ${new Date(listing.endsAt).toLocaleString()}`;
 
     const seller = document.createElement("p");
     seller.className = "text-sm text-gray-500";
