@@ -20,7 +20,7 @@ export async function showUserCredits() {
       });
 
       const { data } = await res.json();
-      const html = `Credits: <span class="text-green-600 font-semibold">${data.credits}</span>`;
+      const html = `Credits: <span class="text-green-400 font-semibold">${data.credits}</span>`;
 
       // Mobile
       if (mobileEl) {

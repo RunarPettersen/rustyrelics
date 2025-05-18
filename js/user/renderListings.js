@@ -90,7 +90,7 @@ export function renderListings(items = [], container, currentUsername) {
       editBtn.textContent = "Edit";
 
       const deleteBtn = document.createElement("button");
-      deleteBtn.className = "text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700";
+      deleteBtn.className = "text-sm bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 cursor-pointer";
       deleteBtn.textContent = "Delete";
 
       deleteBtn.addEventListener("click", () => {
