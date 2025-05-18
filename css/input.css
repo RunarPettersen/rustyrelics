@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Goblin+One&family=Rufina:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -8,4 +9,12 @@
   --color-charcoal: #2D2D2D;
   --color-parchment-50: #F8F1E7;
   --color-antique: #F8F1E7;
+  --font-rufina: "Rufina", serif;
+  --font-goblin: "Goblin One", cursive;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-rufina);
+  }
 }
