@@ -13,6 +13,10 @@ export function setupLightbox(images) {
   img.className = "max-h-[90%] max-w-[90%] rounded shadow";
   overlay.appendChild(img);
 
+  const caption = document.createElement("p");
+  caption.className = "text-white mt-2 text-sm text-center";
+  overlay.appendChild(caption);
+
   const leftArrow = document.createElement("button");
   leftArrow.innerHTML = "&#10094;";
   leftArrow.className =
@@ -28,6 +32,7 @@ export function setupLightbox(images) {
   const closeOverlay = () => {
     overlay.classList.add("hidden");
     img.src = "";
+    caption.textContent = "";
   };
 
   overlay.addEventListener("click", (e) => {
@@ -44,6 +49,8 @@ export function setupLightbox(images) {
   const showImage = (index) => {
     const validIndex = (index + images.length) % images.length;
     img.src = images[validIndex].src;
+    img.alt = images[validIndex].alt || "Image description";
+    caption.textContent = images[validIndex].alt || "No description available";
     currentIndex = validIndex;
     overlay.classList.remove("hidden");
   };
