@@ -5,7 +5,7 @@ export function setupProfileButtons(container) {
   const editBtn = document.createElement("button");
   editBtn.id = "edit-profile-btn";
   editBtn.textContent = "Edit Profile";
-  editBtn.className = "bg-gold-500 text-white px-3 py-1 rounded hover:bg-gold-600 cursor-pointer";
+  editBtn.className = "bg-rust-500 text-white px-3 py-1 rounded hover:bg-rust-600 cursor-pointer";
 
   // Logout button
   const logoutBtn = document.createElement("button");

@@ -86,7 +86,7 @@ export function renderListings(items = [], container, currentUsername) {
 
       const editBtn = document.createElement("a");
       editBtn.href = `/auctions/edit.html?id=${item.id}`;
-      editBtn.className = "text-sm bg-gold-500 text-white px-3 py-1 rounded hover:bg-gold-600";
+      editBtn.className = "text-sm bg-rust-500 text-white px-3 py-1 rounded hover:bg-rust-600";
       editBtn.textContent = "Edit";
 
       const deleteBtn = document.createElement("button");
