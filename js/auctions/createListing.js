@@ -13,13 +13,13 @@ addImageBtn.addEventListener("click", () => {
   urlInput.type = "url";
   urlInput.name = "media-url";
   urlInput.placeholder = "Image URL";
-  urlInput.className = "w-full mb-2 p-2 border rounded";
+  urlInput.className = "bg-white w-full mb-2 p-2 border rounded";
 
   const altInput = document.createElement("input");
   altInput.type = "text";
   altInput.name = "media-alt";
   altInput.placeholder = "Image ALT";
-  altInput.className = "w-full p-2 border rounded";
+  altInput.className = "bg-white w-full p-2 border rounded";
 
   wrapper.append(urlInput, altInput);
   imageContainer.appendChild(wrapper);
