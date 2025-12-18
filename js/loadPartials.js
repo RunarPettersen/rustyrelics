@@ -22,7 +22,14 @@ function loadFontAwesome() {
   const link = document.createElement("link");
   link.id = "font-awesome";
   link.rel = "stylesheet";
-  link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css";
+  link.href =
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css";
+
+  link.integrity =
+    "sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==";
+  link.crossOrigin = "anonymous";
+  link.referrerPolicy = "no-referrer";
+
   document.head.appendChild(link);
 }
 
@@ -76,7 +83,7 @@ function getBasePath() {
   return "/partials/";
 }
 
-// Ensure the trailing slash before loading partials
+// Trailing slash before loading partials
 ensureTrailingSlash();
 
 document.addEventListener("DOMContentLoaded", async () => {

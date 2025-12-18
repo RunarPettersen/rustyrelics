@@ -46,6 +46,14 @@ To format all project files:
 To format a single file:
 2. npx prettier --write path/to/file.js
 
+## Recent improvements (portfolio polish)
+
+- Pagination buttons now have a proper disabled state (not “clickable” on first/last page)
+- Better user messages for actions and API errors (instead of browser alerts)
+- Listing images improved: main image with smaller thumbnails (no “holes” in a fixed grid)
+- Added JSDoc where appropriate for clearer code and easier maintenance
+- Optional security hardening: CDN include with integrity/crossorigin (Font Awesome)
+
 ### Usage of Webpage
 Home Page: Information and latest listings
 Auctions: Browse the available auctions.
